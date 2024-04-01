@@ -4,37 +4,30 @@ function TicketList() {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    fetchTickets();
-  }, []);
-
-  const fetchTickets = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/tickets');
-      if (!response.ok) {
-        throw new Error('Failed to fetch tickets');
-      }
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/tickets');
         const data = await response.json();
         setTickets(data);
-        console.log(data); // Logging fetched data
-      } else {
-        throw new Error('Invalid content type: expected JSON');
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <h1>Tickets</h1>
       <ul>
-        {tickets.map((ticket, index) => (
-          <li key={index}>
-            <h3>{ticket.title}</h3>
+        {tickets.map(ticket => (
+          <li key={ticket.id}>
+            <h2>{ticket.title}</h2>
             <p>{ticket.description}</p>
             <p>Contact: {ticket.contact}</p>
+            <p>Created Timestamp: {ticket.createdTimestamp}</p>
+            <p>Latest Ticket Update Timestamp: {ticket.latestUpdateTimestamp}</p>
+            <p>Status: {ticket.status}</p>
           </li>
         ))}
       </ul>

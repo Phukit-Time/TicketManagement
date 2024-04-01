@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Form() {
   const [formData, setFormData] = useState({
@@ -6,6 +6,25 @@ function Form() {
     description: '',
     contact: ''
   });
+  const [ticketCount, setTicketCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/tickets');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Set the ticket count to the length of the data array
+        setTicketCount(data.length);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +37,7 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedFormData = {
+        id: ticketCount,
         ...formData,
         createdTimestamp: new Date().toISOString(),
         lastestUpdateTimestamp: new Date().toISOString(),
@@ -47,6 +67,7 @@ function Form() {
   return (
     <div>
       <h1>Create Ticket</h1>
+      <p>Total Tickets: {ticketCount}</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Title:</label>

@@ -30,6 +30,7 @@ function TicketList() {
             <p>Created Timestamp: {ticket.createdTimestamp}</p>
             <p>Latest Ticket Update Timestamp: {ticket.lastestUpdateTimestamp}</p>
             <p>Status: {ticket.status}</p>
+            <Link to={`/update/${ticket.id}`}>Update</Link>
           </li>
         ))}
       </ul>

@@ -5,6 +5,7 @@ import {
 } from "react-router-dom"
 import Form from './CreateTicketForm';
 import TicketList from './ListOfTickets';
+import Update from './Update';
 
 function App() {
   const router = createBrowserRouter([
@@ -15,6 +16,10 @@ function App() {
     {
       path: "/addticket",
       element: <Form />,
+    },
+    {
+      path: "/update/:id",
+      element: <Update />,
     },
   ])
 

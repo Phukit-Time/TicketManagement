@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Form() {
   const [formData, setFormData] = useState({
@@ -32,7 +32,9 @@ function Form() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const myData = {
         id: ticketCount,
@@ -42,14 +44,14 @@ function Form() {
         status: "pending"
       };
     // Send form data to the backend
-    fetch('http://localhost:3001/ticket', {
+    await fetch('http://localhost:3001/ticket', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(myData)
     })
-
+    navigate("/");
   };
 
   return (

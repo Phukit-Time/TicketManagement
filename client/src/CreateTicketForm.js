@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Form() {
   const [formData, setFormData] = useState({
@@ -12,9 +13,6 @@ function Form() {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3001/tickets');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         const data = await response.json();
         // Set the ticket count to the length of the data array
         setTicketCount(data.length);
@@ -36,7 +34,7 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedFormData = {
+    const myData = {
         id: ticketCount,
         ...formData,
         createdTimestamp: new Date().toISOString(),
@@ -49,23 +47,14 @@ function Form() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(updatedFormData)
+      body: JSON.stringify(myData)
     })
-    .then(response => {
-      if (response.ok) {
-        console.log('Ticket created successfully!');
-        // You can redirect or perform any other action upon successful creation
-      } else {
-        console.log('Failed to create ticket');
-      }
-    })
-    .catch(error => {
-      console.log('Error creating ticket:', error);
-    });
+
   };
 
   return (
     <div>
+      <Link to="/">All tickets</Link>
       <h1>Create Ticket</h1>
       <p>Total Tickets: {ticketCount}</p>
       <form onSubmit={handleSubmit}>

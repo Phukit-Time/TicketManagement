@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
@@ -19,6 +20,7 @@ function TicketList() {
 
   return (
     <div>
+      <Link to="/addticket">add ticket</Link>
       <ul>
         {tickets.map(ticket => (
           <li key={ticket.id}>
@@ -26,7 +28,7 @@ function TicketList() {
             <p>{ticket.description}</p>
             <p>Contact: {ticket.contact}</p>
             <p>Created Timestamp: {ticket.createdTimestamp}</p>
-            <p>Latest Ticket Update Timestamp: {ticket.latestUpdateTimestamp}</p>
+            <p>Latest Ticket Update Timestamp: {ticket.lastestUpdateTimestamp}</p>
             <p>Status: {ticket.status}</p>
           </li>
         ))}

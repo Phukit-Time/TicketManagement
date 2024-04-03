@@ -41,7 +41,7 @@ function Form() {
         ...formData,
         createdTimestamp: new Date().toISOString(),
         lastestUpdateTimestamp: new Date().toISOString(),
-        status: "pending"
+        status: "Pending"
       };
     // Send form data to the backend
     await fetch('http://localhost:3001/ticket', {

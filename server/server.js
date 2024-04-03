@@ -18,7 +18,6 @@ app.use(bodyParser.json(), cors(corsOptions));
 const saveTicketToFile = (ticketData) => {
   fs.readFile(ticketFilePath, 'utf8', (err, data) => {
     if (err) {
-      // If file does not exist, create it and add ticket data
       fs.writeFile(ticketFilePath, JSON.stringify([ticketData], null, 2), (err) => {
         if (err) {
           console.error('Error creating ticket file:', err);

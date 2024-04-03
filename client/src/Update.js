@@ -43,21 +43,21 @@ function Update() {
                 <div>
                     <label htmlFor="title">title: </label>
                     <input type="text" name="title" placeholder='Enter Title' 
-                    value={values.title} onChange={e => setValue({...values, title: e.target.value})}/>
+                    value={values.title} onChange={e => setValue({...values, title: e.target.value})} required/>
                 </div>
                 <div>
                     <label htmlFor="contact">description: </label>
                     <input type="text" name="description" placeholder='Enter Description' 
-                    value={values.description} onChange={e => setValue({...values, description: e.target.value})}/>
+                    value={values.description} onChange={e => setValue({...values, description: e.target.value})} required/>
                 </div>
                 <div>
                     <label htmlFor="contact">Contact: </label>
                     <input type="text" name="contact" placeholder='Enter Contact' 
-                    value={values.contact} onChange={e => setValue({...values, contact: e.target.value})}/>
+                    value={values.contact} onChange={e => setValue({...values, contact: e.target.value})} required/>
                 </div>
                 <div>
                     <label htmlFor="status">Status: </label>
-                    <select type="text" name="status" id="status" placeholder='Enter Status'value={values.status} onChange={e => setValue({...values, status: e.target.value})} >
+                    <select type="text" name="status" id="status" value={values.status} onChange={e => setValue({...values, status: e.target.value})} required>
                         <option value="Pending">Pending</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Resolved">Resolved</option>

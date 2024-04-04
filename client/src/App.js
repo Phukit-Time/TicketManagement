@@ -12,15 +12,15 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <TicketList />,
+      element: <div className='body'><TicketList /></div>,
     },
     {
       path: "/addticket",
-      element: <Form />,
+      element: <div className='body'><Form /></div>,
     },
     {
       path: "/update/:id",
-      element: <Update />,
+      element: <div className='body'><Update /></div>,
     },
   ])
 

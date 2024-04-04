@@ -66,7 +66,7 @@ function Update() {
                         <option value="Rejected">Rejected</option>
                     </select>
                 </div>
-                <button>Update</button>
+                <button className="button">Update</button>
             </form>
         </div>
     );

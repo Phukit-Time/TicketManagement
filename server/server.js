@@ -11,7 +11,6 @@ const app = express();
 const port = 3001;
 const ticketFilePath = 'tickets.json';
 
-// Middleware to parse JSON bodies
 app.use(bodyParser.json(), cors(corsOptions));
 
 // Function to save ticket data to JSON file
@@ -26,7 +25,6 @@ const saveTicketToFile = (ticketData) => {
         }
       });
     } else {
-      // If file exists, append ticket data
       const existingData = JSON.parse(data);
       existingData.push(ticketData);
       fs.writeFile(ticketFilePath, JSON.stringify(existingData, null, 2), (err) => {
@@ -41,15 +39,10 @@ const saveTicketToFile = (ticketData) => {
 };
 
 
-// Route to handle POST requests to "/ticket"
+// Route to handle POST requests from "/ticket"
 app.post('/ticket', (req, res) => {
   const ticketData = req.body;
-  console.log('Received ticket data:', ticketData);
-  
-    // Save ticket data to file
-    saveTicketToFile(ticketData);
-
-  res.status(201).send('Ticket created successfully');
+  saveTicketToFile(ticketData);
 });
 
 // Route to serve tickets.json
@@ -78,10 +71,6 @@ app.put('/tickets/:id', (req, res) => {
   const updatedTicket = req.body;
 
   fs.readFile(ticketFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading ticket file:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
       let tickets = JSON.parse(data);
       const index = tickets.findIndex(ticket => ticket.id === parseInt(id));
 
@@ -97,11 +86,10 @@ app.put('/tickets/:id', (req, res) => {
             res.status(200).send('Ticket updated successfully');
           }
         });
-
-    }
   });
 });
-// Start the server
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

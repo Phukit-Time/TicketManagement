@@ -55,7 +55,7 @@ function Form() {
   };
 
   return (
-    <div>
+    <div className="component">
       <Link to="/" className="button">All tickets</Link>
       <h1>Create Ticket</h1>
       <p>Total Tickets: {ticketCount}</p>
@@ -90,7 +90,7 @@ function Form() {
           />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="button">Submit</button>
         </div>
       </form>
     </div>

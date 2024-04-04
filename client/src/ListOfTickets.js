@@ -3,23 +3,18 @@ import { Link } from 'react-router-dom';
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('createdTimestamp');
   const [filterByStatus, setFilterByStatus] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/tickets');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setTickets(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      const response = await fetch('http://localhost:3001/tickets');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      const data = await response.json();
+      setTickets(data);
+
     };
 
     fetchData();
@@ -35,7 +30,7 @@ function TicketList() {
 
   const filteredTickets = tickets.filter(ticket => {
     if (filterByStatus === '') {
-      return true; // Show all tickets if no status is selected
+      return true;
     } else {
       return ticket.status === filterByStatus;
     }
@@ -45,27 +40,24 @@ function TicketList() {
     if (sortBy === 'status') {
       return a[sortBy].localeCompare(b[sortBy]);
     } else {
-      return new Date(b[sortBy]) - new Date(a[sortBy]);
+      return new Date(a[sortBy]) - new Date(b[sortBy]);
     }
   });
 
-
   const formatDate = (dateTimeString) => {
-    return new Date(dateTimeString).toLocaleString(); // Change date and time format here
+    return new Date(dateTimeString).toLocaleString();
   };
 
   return (
-    <div>
-      <div>
+    <div className='container'>
+<h1>Tickets List</h1>
+<div className='element1'>
         <h2>Sort by:</h2>
         <select value={sortBy} onChange={handleSortChange}>
           <option value="createdTimestamp">Created Timestamp</option>
           <option value="lastestUpdateTimestamp">Last Update Timestamp</option>
           <option value="status">Status</option>
         </select>
-      </div>
-
-      <div>
         <h2>Filter by Status:</h2>
         <select value={filterByStatus} onChange={handleFilterChange}>
           <option value="">All</option>
@@ -76,11 +68,9 @@ function TicketList() {
         </select>
       </div>
 
-      <h1>Tickets List</h1>
-      <Link to="/addticket" className="button">Add Ticket</Link>
-      {loading ? (
-  <p>Loading...</p>
-) : (
+
+  <div className='element3'>
+  <Link to="/addticket" className="button">Add Ticket</Link>
   <div className="table-container">
     <table  className="table">
       <thead>
@@ -109,7 +99,8 @@ function TicketList() {
       </tbody>
     </table>
   </div>
-)}
+</div>
+
     </div>
   );
 }

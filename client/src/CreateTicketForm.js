@@ -56,7 +56,7 @@ function Form() {
 
   return (
     <div>
-      <Link to="/">All tickets</Link>
+      <Link to="/" className="button">All tickets</Link>
       <h1>Create Ticket</h1>
       <p>Total Tickets: {ticketCount}</p>
       <form onSubmit={handleSubmit}>

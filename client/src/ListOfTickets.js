@@ -49,9 +49,13 @@ function TicketList() {
     }
   });
 
+
+  const formatDate = (dateTimeString) => {
+    return new Date(dateTimeString).toLocaleString(); // Change date and time format here
+  };
+
   return (
     <div>
-      <Link to="/addticket">Add Ticket</Link>
       <div>
         <h2>Sort by:</h2>
         <select value={sortBy} onChange={handleSortChange}>
@@ -72,24 +76,40 @@ function TicketList() {
         </select>
       </div>
 
-      <h1>Ticket List</h1>
+      <h1>Tickets List</h1>
+      <Link to="/addticket" className="button">Add Ticket</Link>
       {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {sortedAndFilteredTickets.map(ticket => (
-            <li key={ticket.id}>
-              <h2>{ticket.title}</h2>
-              <p>{ticket.description}</p>
-              <p>Contact: {ticket.contact}</p>
-              <p>Created Timestamp: {ticket.createdTimestamp}</p>
-              <p>Latest Ticket Update Timestamp: {ticket.lastestUpdateTimestamp}</p>
-              <p>Status: {ticket.status}</p>
-              <Link to={`/update/${ticket.id}`}>Update</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+  <p>Loading...</p>
+) : (
+  <div className="table-container">
+    <table  className="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Contact</th>
+          <th>Create TimeStamp</th>
+          <th>Latest Update TimeStamp</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedAndFilteredTickets.map(ticket => (
+          <tr key={ticket.id}>
+            <td>{ticket.title}</td>
+            <td>{ticket.description}</td>
+            <td>{ticket.contact}</td>
+            <td>{formatDate(ticket.createdTimestamp)}</td>
+            <td>{formatDate(ticket.lastestUpdateTimestamp)}</td>
+            <td>{ticket.status}</td>
+            <td><Link to={`/update/${ticket.id}`}  className="button">Update</Link></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
     </div>
   );
 }

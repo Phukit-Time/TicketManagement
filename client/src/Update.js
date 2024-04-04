@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Update() {
@@ -39,6 +39,8 @@ function Update() {
 
     return (
         <div>
+            <Link to="/"  className="button">All tickets</Link>
+            <h1>Update Ticket</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="title">title: </label>
